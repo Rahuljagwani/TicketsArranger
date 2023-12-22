@@ -1,19 +1,19 @@
-import { useTask } from '@/context/TaskContext'
+"use client"
+
 import { segregate } from '@/services/segregate';
 import { Task } from '@/types';
-import React from 'react'
+import React, { useContext } from 'react'
 import CardContainer from './CardContainer';
+import { TaskContext } from '@/context/TaskContext';
 
-const MainContent = () => {
-  const { groupBy, tasks } = useTask();
-  const grouped: Map<string, Task[]> = segregate(groupBy, tasks);
-  const array = Array.from(grouped);
+const MainContent: React.FC = () => {
+  const { groupBy, tasks } = useContext(TaskContext);
+  const grouped: Map<keyof Task, Task[]> = segregate(groupBy, tasks);
+  const groupedArray: { key: keyof Task, tasks: Task[] }[] = Array.from(grouped.entries()).map(([key, tasks]) => ({ key, tasks }));
   return (
-    <>
-    {array.map((group: [string, Task[]]) => {
-      <CardContainer key={group[0]} tasks={group[1]} />
-    })}
-    </>
+    <div className='flex flex-row gap-8 flex-wrap justify-center'>
+      {groupedArray.map((ele) => <CardContainer key={ele.key} tasks={ele.tasks} groupBy={ele.key}/>)}
+    </div>
   )
 }
 

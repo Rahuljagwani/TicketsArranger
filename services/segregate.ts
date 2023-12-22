@@ -1,7 +1,7 @@
 import { Task } from "@/types";
 
 export const segregate = (groupBy: keyof Task, tasks: Task[]) => {
-    let map = new Map<string, Task[]>();
+    let map = new Map<keyof Task, Task[]>();
 
     tasks.forEach((task) => {
         const key: any = task[groupBy];
@@ -17,5 +17,12 @@ export const segregate = (groupBy: keyof Task, tasks: Task[]) => {
         }
     });
 
+    if (groupBy == "status") {
+        const done: keyof Task = "done" as keyof Task;
+        const cancelled: keyof Task = "cancelled" as keyof Task;
+        map.set(done, []);
+        map.set(cancelled, []);
+    }
+ 
     return map;
 }

@@ -1,37 +1,23 @@
 "use client"
 
-import { getTasks } from '@/services/getTasks';
-import { Task, User } from '@/types';
+import { Task, TaskContextType, User } from '@/types';
+import axios from 'axios';
 import React, { ReactNode, createContext, useContext, useEffect, useState } from 'react';
 
-interface TaskContextType {
-  groupBy: keyof Task,
-  setGroupBy: React.Dispatch<React.SetStateAction<keyof Task>>;
-  orderBy: keyof Task,
-  setOrderBy: React.Dispatch<React.SetStateAction<keyof Task>>;
-  users: User[],
-  setUsers: React.Dispatch<React.SetStateAction<User[]>>;
-  tasks: Task[],
-  setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
-}
+
+const defaultTaskContext: TaskContextType = {
+  groupBy: "priority",
+  setGroupBy: () => {},
+  orderBy: "title",
+  setOrderBy: () => {},
+  users: [],
+  setUsers: () => {},
+  tasks: [],
+  setTasks: () => {}
+} 
 
 
-const TaskContext = createContext<TaskContextType | undefined>(undefined);
-
-const initialUser:User = {
-    id: "",
-    name: "",
-    available: false
-}
-
-const initialTask: Task = {
-    id: "",
-    title: "",
-    tag: [""],
-    userId: "",
-    status: "",
-    priority: 0
-}
+export const TaskContext = createContext<TaskContextType>(defaultTaskContext);
 
 interface StateGlobalProviderProps {
     children: ReactNode
@@ -40,25 +26,26 @@ interface StateGlobalProviderProps {
 export const TaskProvider: React.FC<StateGlobalProviderProps> = ({ children }: StateGlobalProviderProps) => {
   const [groupBy, setGroupBy] = useState<keyof Task>("priority");
   const [orderBy, setOrderBy] = useState<keyof Task>("title");
-  const [users, setUsers] = useState<User[]>([initialUser]);
-  const [tasks, setTasks] = useState<Task[]>([initialTask]);
+  const [users, setUsers] = useState<User[]>([]);
+  const [tasks, setTasks] = useState<Task[]>([]);
 
   useEffect(() => {
-    getTasks();
+    async function fetchTasks() {
+      await axios.get("https://tfyincvdrafxe7ut2ziwuhe5cm0xvsdu.lambda-url.ap-south-1.on.aws/ticketAndUsers")
+        .then((resp) => {
+            setTasks(resp.data.tickets);
+            setUsers(resp.data.users);
+        })
+        .catch ((err) => {
+            console.log(err);
+        })
+    }
+    fetchTasks()
   }, []);
-
 
   return (
     <TaskContext.Provider value={{ tasks, setTasks, users, setUsers, groupBy, setOrderBy, setGroupBy, orderBy }}>
         {children}
     </TaskContext.Provider>
   );
-};
-
-export const useTask = () => {
-  const context = useContext(TaskContext);
-  if (!context) {
-    throw new Error('useTask must be used within an TaskProvider');
-  }
-  return context;
 };
