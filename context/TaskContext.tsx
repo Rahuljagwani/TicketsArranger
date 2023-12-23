@@ -40,7 +40,6 @@ export const TaskProvider: React.FC<StateGlobalProviderProps> = ({ children }: S
   };
 
   useEffect(() => {
-    localStorage.clear();
     async function fetchTasks() {
       setTheme(localStorage.getItem('theme') === null ? "light" : localStorage.getItem('theme') as string);
       setGroupBy(localStorage.getItem('groupBy') === null ? "priority" : localStorage.getItem('groupBy') as keyof Task)
