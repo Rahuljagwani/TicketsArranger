@@ -8,20 +8,27 @@ import { TaskContext } from '@/context/TaskContext';
 import { Task } from '@/types';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
-
+import { ThemeContext } from '@/context/ThemeContext';
 
 const NavigationBar: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { orderBy, groupBy, setOrderBy, setGroupBy } = useContext(TaskContext);
   const [rotation, setRotation] = useState(0);
+  const { isDarkMode, toggleTheme, theme } = useContext(ThemeContext);
+
+  const handleTheme = (event: React.MouseEvent<HTMLElement>) => {
+    toggleTheme()
+  }
 
   const handleGrouping = (event: SelectChangeEvent) => {
     const value: keyof Task = event.target.value as keyof Task;
+    localStorage.setItem('groupBy', value);
     setGroupBy(value);
   };
 
   const handleOrdering = (event: SelectChangeEvent) => {
     const value: keyof Task = event.target.value as keyof Task;
+    localStorage.setItem('orderBy', value);
     setOrderBy(value);
   };
 
@@ -36,7 +43,7 @@ const NavigationBar: React.FC = () => {
   };
 
   return (
-    <AppBar position="static" color="default" className='text-black bg-white h-20 pt-1 shadow-none'>
+    <AppBar position="static" color="default" className={'h-20 pt-1 shadow-none'}>
       <Toolbar>
         <Button
           variant="outlined"
@@ -44,7 +51,7 @@ const NavigationBar: React.FC = () => {
           onClick={handleMenuClick}
           className='h-6 p-3 navButton'
         >
-          <FormatListBulletedIcon className='size-4'/>
+          <FormatListBulletedIcon className='size-2'/>
           <span>
           &nbsp;&nbsp;Display&nbsp;&nbsp;
           </span>
@@ -92,8 +99,8 @@ const NavigationBar: React.FC = () => {
           </MenuItem>
         </Menu>
         <div className='grow' />
-        <IconButton color="inherit">
-          {false ? <LightThemeIcon /> : <DarkThemeIcon />}
+        <IconButton color="inherit" onClick={handleTheme}>
+          {isDarkMode ? <LightThemeIcon /> : <DarkThemeIcon />}
         </IconButton>
       </Toolbar>
     </AppBar>

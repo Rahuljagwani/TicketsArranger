@@ -2,12 +2,18 @@
 
 import React, { ReactNode, createContext, useContext, useState } from 'react';
 
-type ThemeContextProps = {
+interface ThemeContextProps {
   isDarkMode: boolean;
   toggleTheme: () => void;
+  theme: string;
 };
 
-const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
+const initialContext: ThemeContextProps = {
+  isDarkMode: false,
+  toggleTheme: () => {},
+  theme: "light"
+}
+export const ThemeContext = createContext<ThemeContextProps>(initialContext);
 
 interface StateGlobalProviderProps {
     children: ReactNode
@@ -16,24 +22,18 @@ interface StateGlobalProviderProps {
 
 export const ThemeProvider: React.FC<StateGlobalProviderProps> = ({ children }: StateGlobalProviderProps) => {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+  const [theme, setTheme] = useState<string>("light");
 
   const toggleTheme = () => {
     setIsDarkMode((prev) => !prev);
+    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+
   };
 
   return (
-    <ThemeContext.Provider value={{ isDarkMode, toggleTheme }}>
+    <ThemeContext.Provider value={{ isDarkMode, toggleTheme, theme}}>
       {children}
     </ThemeContext.Provider>
   );
 };
 
-export const useTheme = () => {
-  const context = useContext(ThemeContext);
-
-  if (!context) {
-    throw new Error('useTheme must be used within a ThemeProvider');
-  }
-
-  return context;
-};

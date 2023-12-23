@@ -24,8 +24,10 @@ interface StateGlobalProviderProps {
 }
 
 export const TaskProvider: React.FC<StateGlobalProviderProps> = ({ children }: StateGlobalProviderProps) => {
-  const [groupBy, setGroupBy] = useState<keyof Task>("priority");
-  const [orderBy, setOrderBy] = useState<keyof Task>("title");
+  const initialGrouping = localStorage.getItem('groupBy') === null ? "priority" : localStorage.getItem('groupBy') as keyof Task;
+  const initialOrdering = localStorage.getItem('orderBy') === null ? "title" : localStorage.getItem('orderBy') as keyof Task; 
+  const [groupBy, setGroupBy] = useState<keyof Task>(initialGrouping);
+  const [orderBy, setOrderBy] = useState<keyof Task>(initialOrdering);
   const [users, setUsers] = useState<User[]>([]);
   const [tasks, setTasks] = useState<Task[]>([]);
 
