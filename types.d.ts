@@ -27,10 +27,15 @@ export interface Task {
 export interface cardContainerProps {
     key: string,
     tasks: Task[],
-    groupBy: keyof Task
+    groupByValue: string
 }
 
 export interface cardProps {
     key: string,
     task: Task
+}
+
+export interface IconValue {
+    groupByValue: string;
+    taskLength: number
 }

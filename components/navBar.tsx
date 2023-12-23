@@ -1,15 +1,19 @@
 "use client"
 
-import { AppBar, Toolbar, Button, IconButton, Typography, MenuItem, Menu } from '@mui/material';
+import { AppBar, Toolbar, Button, IconButton, Typography, MenuItem, Menu, makeStyles, createStyles } from '@mui/material';
 import { Brightness4 as DarkThemeIcon, Brightness7 as LightThemeIcon } from '@mui/icons-material';
 import { useContext, useState } from 'react';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { TaskContext } from '@/context/TaskContext';
 import { Task } from '@/types';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+
 
 const NavigationBar: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { orderBy, groupBy, setOrderBy, setGroupBy } = useContext(TaskContext);
+  const [rotation, setRotation] = useState(0);
 
   const handleGrouping = (event: SelectChangeEvent) => {
     const value: keyof Task = event.target.value as keyof Task;
@@ -23,17 +27,31 @@ const NavigationBar: React.FC = () => {
 
   const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
+    setRotation(180);
   };
 
   const handleMenuClose = () => {
     setAnchorEl(null);
+    setRotation(0);
   };
 
   return (
-    <AppBar position="static" color="default" style={{ background: 'white', color: 'black' }}>
+    <AppBar position="static" color="default" className='text-black bg-white h-20 pt-1 shadow-none'>
       <Toolbar>
-        <Button variant="outlined" color="inherit" onClick={handleMenuClick}>
-          Display
+        <Button
+          variant="outlined"
+          color="inherit"
+          onClick={handleMenuClick}
+          className='h-6 p-3 navButton'
+        >
+          <FormatListBulletedIcon className='size-4'/>
+          <span>
+          &nbsp;&nbsp;Display&nbsp;&nbsp;
+          </span>
+          <KeyboardArrowDownIcon
+            className='size-4'
+            style={{ transform: `rotate(${rotation}deg)`, transition: 'transform 0.3s ease-in-out' }}
+          />
         </Button>
         <Menu
           id="display-menu"
@@ -50,7 +68,7 @@ const NavigationBar: React.FC = () => {
               label="Group"
               onChange={handleGrouping}
               size='small'
-              className='w-24'
+              className='w-28'
             >
               <MenuItem value="priority">Priority</MenuItem>
               <MenuItem value="userId">Users</MenuItem>
@@ -66,16 +84,14 @@ const NavigationBar: React.FC = () => {
               label="Order"
               onChange={handleOrdering}
               size='small'
-              className='w-24'
+              className='w-28'
             >
               <MenuItem value="title">Title</MenuItem>
               <MenuItem value="priority">Priority</MenuItem>
             </Select>
           </MenuItem>
         </Menu>
-
-        {/* Right side: Theme toggle button */}
-        <div style={{ flexGrow: 1 }} />
+        <div className='grow' />
         <IconButton color="inherit">
           {false ? <LightThemeIcon /> : <DarkThemeIcon />}
         </IconButton>

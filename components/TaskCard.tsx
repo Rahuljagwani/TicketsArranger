@@ -13,6 +13,8 @@ import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
 import TrackChangesIcon from '@mui/icons-material/TrackChanges';
 import RotateRightIcon from '@mui/icons-material/RotateRight';
+import CancelIcon from '@mui/icons-material/Cancel';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 const TaskCard: React.FC<cardProps> = ({ task }: cardProps) => {
   return (
@@ -24,8 +26,10 @@ const TaskCard: React.FC<cardProps> = ({ task }: cardProps) => {
         <div className='flex leading-4 gap-2'>
           <div>
             {task.status === "Todo" ? <CircleOutlinedIcon className='size-4'/> : ''}
-            {task.status === "In progress" ? <TrackChangesIcon className='size-4' /> : ''}
+            {task.status === "In progress" ? <TrackChangesIcon className='size-4 text-yellow-300' /> : ''}
             {task.status === "Backlog" ? <RotateRightIcon className='size-4'/> : ''}
+            {task.status === "Done" ? <CheckCircleIcon className='size-4 text-cyan-800'/> : ''}
+            {task.status === "Cancelled" ? <CancelIcon className='size-4 text-slate-300'/> : ''}
           </div>
           {task.title}
         </div>

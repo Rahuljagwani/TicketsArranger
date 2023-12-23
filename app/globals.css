@@ -2,10 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-.selectMenu {
-    width: 100px;
-}
-
 .cardMain {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), 0 0 10px rgba(0, 0, 0, 0.1), 0 0 10px rgba(0, 0, 0, 0.1), 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.navButton {
+    box-shadow: 0 0 10px rgba(184, 168, 168, 0.1), 0 0 10px rgba(133, 126, 126, 0.1), 0 0 10px rgba(151, 139, 139, 0.1), 0 0 10px rgba(189, 179, 179, 0.1);
+}
+
+.cardCont {
+    width: 21rem;
 }
