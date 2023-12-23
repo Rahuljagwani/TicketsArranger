@@ -13,7 +13,7 @@ const CardContainer: React.FC<cardContainerProps> = (props: cardContainerProps) 
 
     return (
         <div className='my-2 cardCont py-8'>
-            <CardContainerHead groupByValue={props.groupByValue} taskLength={orderedTasks.length}/>
+            <CardContainerHead key={props.groupByValue} groupByValue={props.groupByValue} taskLength={orderedTasks.length}/>
             <div className='flex flex-col gap-1 mt-8'>
                 {orderedTasks.map((task) => <Card key={task.id} task={task} />)}
             </div>
