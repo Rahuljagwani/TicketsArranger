@@ -7,7 +7,10 @@ interface TaskContextType {
     setUsers: React.Dispatch<React.SetStateAction<User[]>>;
     tasks: Task[],
     setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
-  }
+    isDarkMode: boolean;
+    toggleTheme: () => void;
+    theme: string;
+}
 
 export interface User {
     id: string,

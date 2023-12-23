@@ -8,13 +8,11 @@ import { TaskContext } from '@/context/TaskContext';
 import { Task } from '@/types';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
-import { ThemeContext } from '@/context/ThemeContext';
 
 const NavigationBar: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const { orderBy, groupBy, setOrderBy, setGroupBy } = useContext(TaskContext);
+  const { orderBy, groupBy, setOrderBy, setGroupBy, isDarkMode, toggleTheme, theme } = useContext(TaskContext);
   const [rotation, setRotation] = useState(0);
-  const { isDarkMode, toggleTheme, theme } = useContext(ThemeContext);
 
   const handleTheme = (event: React.MouseEvent<HTMLElement>) => {
     toggleTheme();

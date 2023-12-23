@@ -1,10 +1,12 @@
 import MainContent from '@/components/MainContent'
-import MenuAppBar from '@/components/navBar'
+import NavigationBar from '@/components/navBar'
 
 export default function Home() {
   return (
     <>
-      <MenuAppBar />
+      <div className='text-dark-text bg-dark-mainbg'></div>
+      <div className='bg-dark-navbg'></div>
+      <NavigationBar />
       <MainContent />
     </>
   )

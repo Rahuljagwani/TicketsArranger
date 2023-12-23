@@ -15,10 +15,10 @@ import TrackChangesIcon from '@mui/icons-material/TrackChanges';
 import RotateRightIcon from '@mui/icons-material/RotateRight';
 import CancelIcon from '@mui/icons-material/Cancel';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import { ThemeContext } from '@/context/ThemeContext';
+import { TaskContext } from '@/context/TaskContext';
 
 const TaskCard: React.FC<cardProps> = ({ task }: cardProps) => {
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useContext(TaskContext);
   return (
     <Card className='mt-3 rounded-lg cardMain shadow-none'>
       <CardContent className={'p-3 flex flex-col gap-2 bg-' + theme + '-navbg text-' + theme + '-text'}>

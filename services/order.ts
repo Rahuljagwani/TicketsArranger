@@ -20,7 +20,6 @@ export const mapOrdering = (orderBy: keyof Task, mapTask: Map<string, Task[]>) =
             }
         })
         const groupedArray: { key: string, tasks: Task[] }[] = Array.from(orderedMap.entries()).map(([key, tasks]) => ({ key, tasks }));
-        console.log(groupedArray);
         return groupedArray;
     }
     const sortedEntries: { key: string, tasks: Task[] }[] = Array.from(mapTask.entries())
