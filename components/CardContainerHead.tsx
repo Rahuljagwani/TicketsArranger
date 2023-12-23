@@ -33,29 +33,30 @@ const CardContainerHead: React.FC<IconValue> = ({ groupByValue, taskLength }: Ic
       "Cancelled": <CancelIcon className='size-4 text-slate-300'/>
   };
   return (
-    <span className='leading-4 text-base flex px-4'>
+    <span className='text-base flex px-4 items-end'>
       {groupBy == "priority" ?
-        <span>
+        <span className='leading-4 flex items-end'>
           {priorityIcon[Number(groupByValue)]}&nbsp;&nbsp;
-          {priorityMap[Number(groupByValue)]}
+          {priorityMap[Number(groupByValue)]}&nbsp;&nbsp;
+          {taskLength}
         </span>
         : ''
       }
       {groupBy == "userId" ?
-        <span>
-          {users.find(user => user.id === groupByValue)?.name}
+        <span className='leading-4 flex items-end'>
+          {users.find(user => user.id === groupByValue)?.name}&nbsp;&nbsp;
+          {taskLength}
         </span>
         : ''
       }
       {groupBy == "status" ?
-        <span>
+        <span className='leading-4 flex items-end'>
           {statusIcon[groupByValue]}&nbsp;&nbsp;
-          {groupByValue}
+          {groupByValue}&nbsp;&nbsp;
+          {taskLength}
         </span>
         : ''
       }
-      &nbsp;&nbsp;
-      {taskLength}
       <div className='grow' />
       <span>
         <AddIcon className='size-4'/>

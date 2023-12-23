@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react';
+import React, { useContext } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { Task, cardProps } from '@/types';
@@ -15,11 +15,13 @@ import TrackChangesIcon from '@mui/icons-material/TrackChanges';
 import RotateRightIcon from '@mui/icons-material/RotateRight';
 import CancelIcon from '@mui/icons-material/Cancel';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { ThemeContext } from '@/context/ThemeContext';
 
 const TaskCard: React.FC<cardProps> = ({ task }: cardProps) => {
+  const { theme } = useContext(ThemeContext);
   return (
-    <Card className='cardMain mt-3 rounded-lg'>
-      <CardContent className='p-3 flex flex-col gap-2'>
+    <Card className='mt-3 rounded-lg cardMain shadow-none'>
+      <CardContent className={'p-3 flex flex-col gap-2 bg-' + theme + '-navbg text-' + theme + '-text'}>
         <div className='cardTitle text-stone-400'>
           {task.id}
         </div>

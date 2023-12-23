@@ -14,7 +14,7 @@ const MainContent: React.FC = () => {
   const groupedArray: { key: string, tasks: Task[] }[] = mapOrdering(groupBy, grouped);
   const { theme } = useContext(ThemeContext);
   return (
-    <div  className={'flex flex-row gap-8 flex-wrap justify-center'}>
+    <div  className={'flex flex-row gap-8 flex-wrap justify-center text-' + theme + '-text bg-' + theme + '-mainbg h-screen'}>
       {groupedArray.map((ele) => <CardContainer key={ele.key} tasks={ele.tasks} groupByValue={ele.key}/>)}
     </div>
   )

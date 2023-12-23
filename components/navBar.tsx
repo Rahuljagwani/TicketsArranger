@@ -17,7 +17,7 @@ const NavigationBar: React.FC = () => {
   const { isDarkMode, toggleTheme, theme } = useContext(ThemeContext);
 
   const handleTheme = (event: React.MouseEvent<HTMLElement>) => {
-    toggleTheme()
+    toggleTheme();
   }
 
   const handleGrouping = (event: SelectChangeEvent) => {
@@ -43,7 +43,7 @@ const NavigationBar: React.FC = () => {
   };
 
   return (
-    <AppBar position="static" color="default" className={'h-20 pt-1 shadow-none'}>
+    <AppBar position="static" color="default" className={'h-20 pt-1 bg-' + theme + '-navbg text-' + theme + '-text'}>
       <Toolbar>
         <Button
           variant="outlined"
@@ -51,7 +51,7 @@ const NavigationBar: React.FC = () => {
           onClick={handleMenuClick}
           className='h-6 p-3 navButton'
         >
-          <FormatListBulletedIcon className='size-2'/>
+          <FormatListBulletedIcon className='size-4'/>
           <span>
           &nbsp;&nbsp;Display&nbsp;&nbsp;
           </span>

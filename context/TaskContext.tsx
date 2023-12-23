@@ -24,15 +24,16 @@ interface StateGlobalProviderProps {
 }
 
 export const TaskProvider: React.FC<StateGlobalProviderProps> = ({ children }: StateGlobalProviderProps) => {
-  const initialGrouping = localStorage.getItem('groupBy') === null ? "priority" : localStorage.getItem('groupBy') as keyof Task;
-  const initialOrdering = localStorage.getItem('orderBy') === null ? "title" : localStorage.getItem('orderBy') as keyof Task; 
-  const [groupBy, setGroupBy] = useState<keyof Task>(initialGrouping);
-  const [orderBy, setOrderBy] = useState<keyof Task>(initialOrdering);
+  
+  const [groupBy, setGroupBy] = useState<keyof Task>("priority");
+  const [orderBy, setOrderBy] = useState<keyof Task>("title");
   const [users, setUsers] = useState<User[]>([]);
   const [tasks, setTasks] = useState<Task[]>([]);
 
   useEffect(() => {
     async function fetchTasks() {
+      setGroupBy(localStorage.getItem('groupBy') === null ? "priority" : localStorage.getItem('groupBy') as keyof Task)
+      setOrderBy(localStorage.getItem('orderBy') === null ? "title" : localStorage.getItem('orderBy') as keyof Task)
       await axios.get("https://tfyincvdrafxe7ut2ziwuhe5cm0xvsdu.lambda-url.ap-south-1.on.aws/ticketAndUsers")
         .then((resp) => {
             setTasks(resp.data.tickets);
