@@ -18,19 +18,19 @@ const CardContainerHead: React.FC<IconValue> = ({ groupByValue, taskLength }: Ic
   const { groupBy, users } = useContext(TaskContext);
   const priorityMap: string[] = ["No Priority", "Low", "Medium", "High", "Urgent"];
   const priorityIcon = [
-      <MoreHorizIcon className='size-4' />,
-      <SignalCellularAlt1BarIcon className='size-4' />,
-      <SignalCellularAlt2BarIcon className='size-4' />,
-      <SignalCellularAltIcon className='size-4' />,
-      <ErrorIcon className='size-4 text-amber-500' />
+      <MoreHorizIcon className='size-4' key={0} />,
+      <SignalCellularAlt1BarIcon className='size-4' key={1}/>,
+      <SignalCellularAlt2BarIcon className='size-4' key={2}/>,
+      <SignalCellularAltIcon className='size-4' key={3}/>,
+      <ErrorIcon className='size-4 text-amber-500' key={4}/>
   ];
 
   const statusIcon: { [key: string]: React.JSX.Element } = {
-      "Backlog": <RotateRightIcon className='size-4' />,
-      "In progress": <TrackChangesIcon className='size-4 text-yellow-300' />,
-      "Todo": <CircleOutlinedIcon className='size-4' />,
-      "Done": <CheckCircleIcon className='size-4 text-cyan-800'/>,
-      "Cancelled": <CancelIcon className='size-4 text-slate-300'/>
+      "Backlog": <RotateRightIcon className='size-4' key={0}/>,
+      "In progress": <TrackChangesIcon className='size-4 text-yellow-300' key={1}/>,
+      "Todo": <CircleOutlinedIcon className='size-4' key={2}/>,
+      "Done": <CheckCircleIcon className='size-4 text-cyan-800' key={3}/>,
+      "Cancelled": <CancelIcon className='size-4 text-slate-300' key={4}/>
   };
   return (
     <span className='text-base flex px-4 items-end'>
